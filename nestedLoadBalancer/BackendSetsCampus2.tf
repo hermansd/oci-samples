@@ -14,7 +14,7 @@ resource "oci_load_balancer_backend_set" "priLb1_5570_backend_set" {
         url_path = "/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
-    name = "DashboardServlet_Campus2"
+    name = "DashboardServlet_${var.campusName.two}"
     policy = "LEAST_CONNECTIONS"
 }
 
@@ -36,10 +36,10 @@ resource "oci_load_balancer_backend_set" "priLb1_5670_backend_set" {
         #Optional
         port = 5670
         return_code = "200"
-        url_path = "/dwShell/campus2_PROD/"
+        url_path = "/dwShell/${var.campusName.two}_PROD/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
-    name = "Scribe_Campus2"
+    name = "Scribe_${var.campusName.two}"
     policy = "LEAST_CONNECTIONS"
 }
 
@@ -64,7 +64,7 @@ resource "oci_load_balancer_backend_set" "priLb1_5770_backend_set" {
         url_path = "/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
-    name = "Controler_Campus2"
+    name = "Controler_${var.campusName.two}"
     policy = "LEAST_CONNECTIONS"
 }
 
@@ -89,7 +89,7 @@ resource "oci_load_balancer_backend_set" "priLb1_5870_backend_set" {
         url_path = "/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
-    name = "TransitUI_Campus2"
+    name = "TransitUI_${var.campusName.two}"
     policy = "LEAST_CONNECTIONS"
 }
 
@@ -115,7 +115,7 @@ resource "oci_load_balancer_backend_set" "priLb1_5970_backend_set" {
         url_path = "/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
-    name = "Composer_Campus2"
+    name = "Composer_${var.campusName.two}"
     policy = "LEAST_CONNECTIONS"
 }
 
@@ -140,7 +140,7 @@ resource "oci_load_balancer_backend_set" "priLb1_6070_backend_set" {
         url_path = "/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
-    name = "Dashboard_Campus2"
+    name = "Dashboard_${var.campusName.two}"
     policy = "LEAST_CONNECTIONS"
 }
 

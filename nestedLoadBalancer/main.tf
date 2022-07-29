@@ -75,4 +75,5 @@ resource "oci_load_balancer_listener" "priLb1_http_listener" {
     name = "DeegreeWorksHTTP"
     port = "80"
     protocol = "HTTP"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.prilb1_main_routing_policy.name
 }

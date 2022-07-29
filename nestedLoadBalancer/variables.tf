@@ -45,3 +45,12 @@ variable "publicLB1" {
         minimum_bandwidth_in_mbps = number
     })
 }   
+
+variable "campusName" {
+    type = object({
+        one = string
+        two = string
+        three = string
+        four = string
+    })
+}
