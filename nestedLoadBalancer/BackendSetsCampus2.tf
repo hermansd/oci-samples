@@ -36,7 +36,7 @@ resource "oci_load_balancer_backend_set" "priLb1_5670_backend_set" {
         #Optional
         port = 5670
         return_code = "200"
-        url_path = "/dwShell/campus2_PROD"
+        url_path = "/dwShell/campus2_PROD/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
     name = "Scribe_Campus2"
@@ -95,7 +95,7 @@ resource "oci_load_balancer_backend_set" "priLb1_5870_backend_set" {
 
 resource "oci_load_balancer_backend" "priLb1_5870_backend" {
     #Required
-    backendset_name = oci_load_balancer_backend_set.priLb1_5859_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.priLb1_5870_backend_set.name   
     ip_address = var.server_ip_address
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
     port = 5870
@@ -121,7 +121,7 @@ resource "oci_load_balancer_backend_set" "priLb1_5970_backend_set" {
 
 resource "oci_load_balancer_backend" "priLb1_5970_backend" {
     #Required
-    backendset_name = oci_load_balancer_backend_set.priLb1_5959_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.priLb1_5970_backend_set.name   
     ip_address = var.server_ip_address
     load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
     port = 5970

@@ -36,7 +36,7 @@ resource "oci_load_balancer_backend_set" "priLb2_5690_backend_set" {
         #Optional
         port = 5690
         return_code = "200"
-        url_path = "/dwShell/campus4_PROD"
+        url_path = "/dwShell/campus4_PROD/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
     name = "Scribe_Campus4"
