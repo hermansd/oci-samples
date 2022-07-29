@@ -2,7 +2,7 @@
 // Licensed under the Mozilla Public License v2.0
 
 //DashboardServlet Backend Set Configuration
-resource "oci_load_balancer_backend_set" "priLb2_5590_backend_set" {
+resource "oci_load_balancer_backend_set" "priLB2_5590_backend_set" {
     #Required
     health_checker {
         #Required
@@ -13,21 +13,21 @@ resource "oci_load_balancer_backend_set" "priLb2_5590_backend_set" {
         return_code = "200"
         url_path = "/"
     }
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     name = "DashboardServlet_${var.campusName.four}"
     policy = "LEAST_CONNECTIONS"
 }
 
-resource "oci_load_balancer_backend" "priLb2_5590_backend" {
+resource "oci_load_balancer_backend" "priLB2_5590_backend" {
     #Required
-    backendset_name = oci_load_balancer_backend_set.priLb2_5590_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.priLB2_5590_backend_set.name   
     ip_address = var.server_ip_address
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     port = 5590
 }
 
 //Scribe Backend Set Configuration
-resource "oci_load_balancer_backend_set" "priLb2_5690_backend_set" {
+resource "oci_load_balancer_backend_set" "priLB2_5690_backend_set" {
     #Required
     health_checker {
         #Required
@@ -38,21 +38,21 @@ resource "oci_load_balancer_backend_set" "priLb2_5690_backend_set" {
         return_code = "200"
         url_path = "/dwShell/${var.campusName.four}_PROD/"
     }
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     name = "Scribe_${var.campusName.four}"
     policy = "LEAST_CONNECTIONS"
 }
 
-resource "oci_load_balancer_backend" "priLb2_5690_backend" {
+resource "oci_load_balancer_backend" "priLB2_5690_backend" {
     #Required
-    backendset_name = oci_load_balancer_backend_set.priLb2_5690_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.priLB2_5690_backend_set.name   
     ip_address = var.server_ip_address
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     port = 5690
 }
 
 //Controler Backend Set Configuration
-resource "oci_load_balancer_backend_set" "priLb2_5790_backend_set" {
+resource "oci_load_balancer_backend_set" "priLB2_5790_backend_set" {
     #Required
     health_checker {
         #Required
@@ -63,21 +63,21 @@ resource "oci_load_balancer_backend_set" "priLb2_5790_backend_set" {
         return_code = "200"
         url_path = "/"
     }
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     name = "Controler_${var.campusName.four}"
     policy = "LEAST_CONNECTIONS"
 }
 
-resource "oci_load_balancer_backend" "priLb2_5790_backend" {
+resource "oci_load_balancer_backend" "priLB2_5790_backend" {
     #Required
-    backendset_name = oci_load_balancer_backend_set.priLb2_5790_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.priLB2_5790_backend_set.name   
     ip_address = var.server_ip_address
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     port = 5790
 }
 
 //TransitUI Backend Set Configuration
-resource "oci_load_balancer_backend_set" "priLb2_5890_backend_set" {
+resource "oci_load_balancer_backend_set" "priLB2_5890_backend_set" {
     #Required
     health_checker {
         #Required
@@ -88,22 +88,22 @@ resource "oci_load_balancer_backend_set" "priLb2_5890_backend_set" {
         return_code = "200"
         url_path = "/"
     }
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     name = "TransitUI_${var.campusName.four}"
     policy = "LEAST_CONNECTIONS"
 }
 
-resource "oci_load_balancer_backend" "priLb2_5890_backend" {
+resource "oci_load_balancer_backend" "priLB2_5890_backend" {
     #Required
-    backendset_name = oci_load_balancer_backend_set.priLb2_5890_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.priLB2_5890_backend_set.name   
     ip_address = var.server_ip_address
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     port = 5890
 }
 
 
 //Composer Backend Set Configuration
-resource "oci_load_balancer_backend_set" "priLb2_5990_backend_set" {
+resource "oci_load_balancer_backend_set" "priLB2_5990_backend_set" {
     #Required
     health_checker {
         #Required
@@ -114,21 +114,21 @@ resource "oci_load_balancer_backend_set" "priLb2_5990_backend_set" {
         return_code = "200"
         url_path = "/"
     }
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     name = "Composer_${var.campusName.four}"
     policy = "LEAST_CONNECTIONS"
 }
 
-resource "oci_load_balancer_backend" "priLb2_5990_backend" {
+resource "oci_load_balancer_backend" "priLB2_5990_backend" {
     #Required
-    backendset_name = oci_load_balancer_backend_set.priLb2_5990_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.priLB2_5990_backend_set.name   
     ip_address = var.server_ip_address
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     port = 5990
 }
 
 //Dashboard Backend Set Configuration
-resource "oci_load_balancer_backend_set" "priLb2_6090_backend_set" {
+resource "oci_load_balancer_backend_set" "priLB2_6090_backend_set" {
     #Required
     health_checker {
         #Required
@@ -139,16 +139,16 @@ resource "oci_load_balancer_backend_set" "priLb2_6090_backend_set" {
         return_code = "200"
         url_path = "/"
     }
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     name = "Dashboard_${var.campusName.four}"
     policy = "LEAST_CONNECTIONS"
 }
 
-resource "oci_load_balancer_backend" "priLb2_6090_backend" {
+resource "oci_load_balancer_backend" "priLB2_6090_backend" {
     #Required
-    backendset_name = oci_load_balancer_backend_set.priLb2_6090_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.priLB2_6090_backend_set.name   
     ip_address = var.server_ip_address
-    load_balancer_id = oci_load_balancer_load_balancer.priLb2.id
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
     port = 6090
 }
 

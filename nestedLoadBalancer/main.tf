@@ -17,7 +17,7 @@ provider "oci" {
 
 /* Load Balancer */
 
-resource "oci_load_balancer_load_balancer" "priLb1" {
+resource "oci_load_balancer_load_balancer" "priLB1" {
   shape          = "flexible"
   shape_details{
     maximum_bandwidth_in_mbps = var.privateLB1.maximum_bandwidth_in_mbps
@@ -30,7 +30,7 @@ resource "oci_load_balancer_load_balancer" "priLb1" {
   network_security_group_ids = [oci_core_network_security_group.lb_security_group.id]
 }
 
-resource "oci_load_balancer_load_balancer" "priLb2" {
+resource "oci_load_balancer_load_balancer" "priLB2" {
   shape          = "flexible"
   shape_details{
     maximum_bandwidth_in_mbps = var.privateLB2.maximum_bandwidth_in_mbps
@@ -69,11 +69,20 @@ resource "oci_core_network_security_group" "server_security_group_name" {
 }
 
 
-resource "oci_load_balancer_listener" "priLb1_http_listener" {
-    default_backend_set_name = oci_load_balancer_backend_set.priLb1_5559_backend_set.name
-    load_balancer_id = oci_load_balancer_load_balancer.priLb1.id
+resource "oci_load_balancer_listener" "priLB1_http_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.priLB1_5559_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.priLB1.id
     name = "DeegreeWorksHTTP"
     port = "80"
     protocol = "HTTP"
-    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.prilb1_main_routing_policy.name
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB1_main_routing_policy.name
+}
+
+resource "oci_load_balancer_listener" "priLB2_http_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.priLB2_5550_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
+    name = "DeegreeWorksHTTP"
+    port = "80"
+    protocol = "HTTP"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB2_main_routing_policy.name
 }
