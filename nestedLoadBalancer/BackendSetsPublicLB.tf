@@ -46,7 +46,7 @@ resource "oci_load_balancer_backend_set" "pubLB_priLB2_backend_set" {
 resource "oci_load_balancer_backend" "pubLB_priLB2_backend" {
     #Required
     backendset_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name   
-    ip_address = oci_load_balancer_load_balancer.priLB1.ip_addresses[0]
+    ip_address = oci_load_balancer_load_balancer.priLB2.ip_addresses[0]
     load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
     port = 80
 }
