@@ -43,7 +43,7 @@ resource "oci_load_balancer_load_balancer" "priLB2" {
   network_security_group_ids = [oci_core_network_security_group.lb_security_group.id]
 }
 
-resource "oci_load_balancer_load_balancer" "publb" {
+resource "oci_load_balancer_load_balancer" "pubLB" {
   shape          = "flexible"
   shape_details{
     maximum_bandwidth_in_mbps = var.publicLB1.maximum_bandwidth_in_mbps
