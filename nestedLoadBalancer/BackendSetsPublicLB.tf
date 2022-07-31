@@ -3,12 +3,8 @@
 
 //DashboardServlet Backend Set Configuration
 resource "oci_load_balancer_backend_set" "pubLB_priLB1_backend_set" {
-    #Required
     health_checker {
-        #Required
         protocol = "HTTP"
-
-        #Optional
         port = 80
         return_code = "200"
         url_path = "/"
@@ -19,7 +15,6 @@ resource "oci_load_balancer_backend_set" "pubLB_priLB1_backend_set" {
 }
 
 resource "oci_load_balancer_backend" "pubLB_priLB1_backend" {
-    #Required
     backendset_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name   
     ip_address = oci_load_balancer_load_balancer.priLB1.ip_addresses[0]
     load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
@@ -28,15 +23,11 @@ resource "oci_load_balancer_backend" "pubLB_priLB1_backend" {
 
 //Scribe Backend Set Configuration
 resource "oci_load_balancer_backend_set" "pubLB_priLB2_backend_set" {
-    #Required
     health_checker {
-        #Required
         protocol = "HTTP"
-
-        #Optional
         port = 80
         return_code = "200"
-        url_path = "/dwShell/${var.campusName.one}_PROD/"
+        url_path = "/"
     }
     load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
     name =  var.privateLB2.display_name
@@ -44,8 +35,7 @@ resource "oci_load_balancer_backend_set" "pubLB_priLB2_backend_set" {
 }
 
 resource "oci_load_balancer_backend" "pubLB_priLB2_backend" {
-    #Required
-    backendset_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name   
+    backendset_name = oci_load_balancer_backend_set.pubLB_priLB2_backend_set.name   
     ip_address = oci_load_balancer_load_balancer.priLB2.ip_addresses[0]
     load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
     port = 80

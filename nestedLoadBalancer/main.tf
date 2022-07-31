@@ -86,3 +86,75 @@ resource "oci_load_balancer_listener" "priLB2_http_listener" {
     protocol = "HTTP"
     routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB2_main_routing_policy.name
 }
+
+resource "oci_load_balancer_listener" "publicLB_http_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
+    name = "DeegreeWorksHTTP"
+    port = "80"
+    protocol = "HTTP"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.pubLB_main_routing_policy.name
+}
+
+
+resource "oci_load_balancer_certificate" "publicLB_certificate" {
+    #Required
+    certificate_name = var.publicLB1.certificate_name
+    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
+
+    #Optional
+    ca_certificate = var.publicLB1.ca_certificate
+    private_key = var.publicLB1.private_key
+    public_certificate = var.publicLB1.public_certificate
+}
+
+resource "oci_load_balancer_certificate" "publicLB_priLB1_certificate" {
+    #Required
+    certificate_name = var.privateLB1.certificate_name
+    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
+
+    #Optional
+    ca_certificate = var.privateLB1.ca_certificate
+    public_certificate = var.privateLB1.public_certificate
+}
+
+resource "oci_load_balancer_certificate" "publicLB_priLB2_certificate" {
+    #Required
+    certificate_name = var.privateLB2.certificate_name
+    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
+
+    #Optional
+    ca_certificate = var.privateLB2.ca_certificate
+    public_certificate = var.privateLB2.public_certificate
+}
+
+resource "oci_load_balancer_certificate" "priLB1_certificate" {
+    #Required
+    certificate_name = var.privateLB1.certificate_name
+    load_balancer_id = oci_load_balancer_load_balancer.priLB1.id
+
+    #Optional
+    ca_certificate = var.privateLB1.ca_certificate
+    private_key = var.privateLB1.private_key
+    public_certificate = var.privateLB1.public_certificate
+}
+
+resource "oci_load_balancer_certificate" "priLB2_certificate" {
+    #Required
+    certificate_name = var.privateLB2.certificate_name
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
+
+    #Optional
+    ca_certificate = var.privateLB2.ca_certificate
+    private_key = var.privateLB2.private_key
+    public_certificate = var.privateLB2.public_certificate
+}
+
+//resource "oci_load_balancer_listener" "publicLB_https_listener" {
+//   default_backend_set_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name
+//    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
+//    name = "DeegreeWorksHTTPs"
+//    port = "443"
+//    protocol = "HTTP"
+//    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.pubLB_main_routing_policy.name
+//}

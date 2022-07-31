@@ -22,6 +22,10 @@ variable "privateLB1" {
         compartment_ocid = string
         maximum_bandwidth_in_mbps = number
         minimum_bandwidth_in_mbps = number
+        ca_certificate = string
+        private_key = string
+        certificate_name = string
+        public_certificate = string
     })
 }   
 
@@ -33,6 +37,10 @@ variable "privateLB2" {
         compartment_ocid = string
         maximum_bandwidth_in_mbps = number
         minimum_bandwidth_in_mbps = number
+        ca_certificate = string
+        private_key = string
+        certificate_name = string
+        public_certificate = string
     })
 }   
 //Needed information for creating public Load Balancer
@@ -43,6 +51,10 @@ variable "publicLB1" {
         compartment_ocid = string
         maximum_bandwidth_in_mbps = number
         minimum_bandwidth_in_mbps = number
+        ca_certificate = string
+        private_key = string
+        certificate_name = string
+        public_certificate = string
     })
 }   
 
