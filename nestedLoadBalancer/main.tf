@@ -55,7 +55,7 @@ resource "oci_load_balancer_load_balancer" "pubLB" {
   is_private                 = false
   network_security_group_ids = [oci_core_network_security_group.lb_security_group.id]
   reserved_ips {
-        id = oci_core_public_ip.pubLB_public_ip.id
+        id = var.publicLB1.reserved_ip_ocid
     }
 }
 
@@ -146,7 +146,8 @@ resource "oci_load_balancer_listener" "publicLB_http_listener" {
     name = "DeegreeWorksHTTP"
     port = "80"
     protocol = "HTTP"
-    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.pubLB_main_routing_policy.name
+    //routing_policy_name = oci_load_balancer_load_balancer_routing_policy.pubLB_main_routing_policy.name
+    rule_set_names = [oci_load_balancer_rule_set.priLB1_rule_set.name]
 }
 
 
@@ -224,13 +225,25 @@ resource "oci_dns_rrset" "priLB2_rrset" {
     }
 }
 
-
-resource "oci_core_public_ip" "pubLB_public_ip" {
-    compartment_id = var.net_compartment_ocid
-    lifetime = "Reserved"
-    display_name = var.publicLB1.display_name
-
-    lifecycle {
-      prevent_destroy = true
+resource "oci_load_balancer_rule_set" "priLB1_rule_set" {
+    #Required
+    items {
+        #Required
+        action = "REDIRECT"
+        conditions {
+            #Required
+            attribute_name = "PATH"
+            attribute_value = "/"
+            operator        = "FORCE_LONGEST_PREFIX_MATCH"
+        }
+        redirect_uri {
+            protocol = "https"
+            host     = "{host}"
+            port     = 443
+            path     = "{path}"
+        }
     }
+    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
+    name = "RedirectHTTPTraffic"
 }
+

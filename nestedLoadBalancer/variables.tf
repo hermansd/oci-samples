@@ -49,6 +49,7 @@ variable "privateLB2" {
 variable "publicLB1" {
     type = object({
         display_name = string
+        dns = string
         subnet_ocid = string
         compartment_ocid = string
         maximum_bandwidth_in_mbps = number
@@ -57,6 +58,7 @@ variable "publicLB1" {
         private_key = string
         certificate_name = string
         public_certificate = string
+        reserved_ip_ocid = string
     })
 }   
 
