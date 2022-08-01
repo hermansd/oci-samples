@@ -4,7 +4,7 @@
 resource "oci_load_balancer_load_balancer_routing_policy" "priLB2_main_routing_policy" {
     condition_language_version = "V1"
     load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
-    name = "${var.privateLB1.display_name}Main"
+    name = "${var.privateLB2.display_name}Main"
     rules {
         actions {
             name = "FORWARD_TO_BACKENDSET"

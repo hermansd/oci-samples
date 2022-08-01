@@ -54,6 +54,9 @@ resource "oci_load_balancer_load_balancer" "pubLB" {
   display_name   = var.publicLB1.display_name
   is_private                 = false
   network_security_group_ids = [oci_core_network_security_group.lb_security_group.id]
+  reserved_ips {
+        id = oci_core_public_ip.pubLB_public_ip.id
+    }
 }
 
 resource "oci_core_network_security_group" "lb_security_group" {
@@ -66,34 +69,6 @@ resource "oci_core_network_security_group" "server_security_group_name" {
     compartment_id = var.net_compartment_ocid
     vcn_id = var.vcn_ocid
     display_name = var.server_security_group_name
-}
-
-
-resource "oci_load_balancer_listener" "priLB1_http_listener" {
-    default_backend_set_name = oci_load_balancer_backend_set.priLB1_5559_backend_set.name
-    load_balancer_id = oci_load_balancer_load_balancer.priLB1.id
-    name = "DeegreeWorksHTTP"
-    port = "80"
-    protocol = "HTTP"
-    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB1_main_routing_policy.name
-}
-
-resource "oci_load_balancer_listener" "priLB2_http_listener" {
-    default_backend_set_name = oci_load_balancer_backend_set.priLB2_5550_backend_set.name
-    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
-    name = "DeegreeWorksHTTP"
-    port = "80"
-    protocol = "HTTP"
-    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB2_main_routing_policy.name
-}
-
-resource "oci_load_balancer_listener" "publicLB_http_listener" {
-    default_backend_set_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name
-    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
-    name = "DeegreeWorksHTTP"
-    port = "80"
-    protocol = "HTTP"
-    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.pubLB_main_routing_policy.name
 }
 
 
@@ -165,8 +140,18 @@ resource "oci_load_balancer_listener" "publicLB_https_listener" {
     }
 }
 
+resource "oci_load_balancer_listener" "publicLB_http_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
+    name = "DeegreeWorksHTTP"
+    port = "80"
+    protocol = "HTTP"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.pubLB_main_routing_policy.name
+}
+
+
 resource "oci_load_balancer_listener" "priLB1_https_listener" {
-    default_backend_set_name = oci_load_balancer_backend_set.priLB2_5559_backend_set.name
+    default_backend_set_name = oci_load_balancer_backend_set.priLB1_5559_backend_set.name
     load_balancer_id = oci_load_balancer_load_balancer.priLB1.id
     name = "DeegreeWorksHTTPs"
     port = "443"
@@ -178,6 +163,15 @@ resource "oci_load_balancer_listener" "priLB1_https_listener" {
       protocols = ["TLSv1.2"]
       verify_peer_certificate = false
     }
+}
+
+resource "oci_load_balancer_listener" "priLB1_http_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.priLB1_5559_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.priLB1.id
+    name = "DeegreeWorksHTTP"
+    port = "80"
+    protocol = "HTTP"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB1_main_routing_policy.name
 }
 
 resource "oci_load_balancer_listener" "priLB2_https_listener" {
@@ -194,6 +188,49 @@ resource "oci_load_balancer_listener" "priLB2_https_listener" {
       verify_peer_certificate = false
     }
 }
+resource "oci_load_balancer_listener" "priLB2_http_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.priLB2_5550_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
+    name = "DeegreeWorksHTTP"
+    port = "80"
+    protocol = "HTTP"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB2_main_routing_policy.name
+}
 
 
-//ssl_configuration: [{"certificate_ids":[],"certificate_name":"dwsouthlb","cipher_suite_name":"oci-default-http2-ssl-cipher-suite-v1","protocols":["TLSv1.2"],"server_order_preference":"ENABLED","trusted_certificate_authority_ids":[],"verify_depth":1,"verify_peer_certificate":false}]
+resource "oci_dns_rrset" "priLB1_rrset" {
+    domain = var.privateLB1.dns
+    rtype = "A"
+    zone_name_or_id = "ocid1.dns-zone.oc1.phx.aaaaaaaafwjccixwds4myrdhf5lb5r4ugsmvlpewuxfmljdfht4z4z3zmjea"
+
+    items {
+        domain = var.privateLB1.dns
+        rdata = oci_load_balancer_load_balancer.priLB1.ip_addresses[0]
+        rtype = "A"
+        ttl = 30
+    }
+}
+
+resource "oci_dns_rrset" "priLB2_rrset" {
+    domain = var.privateLB2.dns
+    rtype = "A"
+    zone_name_or_id = "ocid1.dns-zone.oc1.phx.aaaaaaaafwjccixwds4myrdhf5lb5r4ugsmvlpewuxfmljdfht4z4z3zmjea"
+
+    items {
+        domain = var.privateLB2.dns
+        rdata = oci_load_balancer_load_balancer.priLB2.ip_addresses[0]
+        rtype = "A"
+        ttl = 30
+    }
+}
+
+
+resource "oci_core_public_ip" "pubLB_public_ip" {
+    compartment_id = var.net_compartment_ocid
+    lifetime = "Reserved"
+    display_name = var.publicLB1.display_name
+
+    lifecycle {
+      prevent_destroy = true
+    }
+}

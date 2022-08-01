@@ -18,6 +18,7 @@ variable "server_ip_address" { type = string }
 variable "privateLB1" {
     type = object({
         display_name = string
+        dns = string
         subnet_ocid = string
         compartment_ocid = string
         maximum_bandwidth_in_mbps = number
@@ -33,6 +34,7 @@ variable "privateLB1" {
 variable "privateLB2" {
     type = object({
         display_name = string
+        dns = string
         subnet_ocid = string
         compartment_ocid = string
         maximum_bandwidth_in_mbps = number
