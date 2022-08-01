@@ -19,7 +19,7 @@ resource "oci_load_balancer_load_balancer_routing_policy" "priLB1_main_routing_p
             name = "FORWARD_TO_BACKENDSET"
             backend_set_name = oci_load_balancer_backend_set.priLB1_5659_backend_set.name
         }
-       condition = "all(http.request.url.path sw (i '/dwShell/${var.campusName.one}_PROD'), http.request.url.path sw (i '/ScribeUI/${var.campusName.one}_PROD'))"
+       condition = "any(http.request.url.path sw (i '/dwShell/${var.campusName.one}_PROD'), http.request.url.path sw (i '/ScribeUI/${var.campusName.one}_PROD'))"
         name = "Scribe_${var.campusName.one}"
     }
     rules {
@@ -67,7 +67,7 @@ resource "oci_load_balancer_load_balancer_routing_policy" "priLB1_main_routing_p
             name = "FORWARD_TO_BACKENDSET"
             backend_set_name = oci_load_balancer_backend_set.priLB1_5670_backend_set.name
         }
-        condition = "all(http.request.url.path sw (i '/dwShell/${var.campusName.two}_PROD'), http.request.url.path sw (i '/ScribeUI/${var.campusName.two}_PROD'))"
+        condition = "any(http.request.url.path sw (i '/dwShell/${var.campusName.two}_PROD'), http.request.url.path sw (i '/ScribeUI/${var.campusName.two}_PROD'))"
         name = "Scribe_${var.campusName.two}"
     }
     rules {

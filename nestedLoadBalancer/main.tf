@@ -150,11 +150,50 @@ resource "oci_load_balancer_certificate" "priLB2_certificate" {
     public_certificate = var.privateLB2.public_certificate
 }
 
-//resource "oci_load_balancer_listener" "publicLB_https_listener" {
-//   default_backend_set_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name
-//    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
-//    name = "DeegreeWorksHTTPs"
-//    port = "443"
-//    protocol = "HTTP"
-//    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.pubLB_main_routing_policy.name
-//}
+resource "oci_load_balancer_listener" "publicLB_https_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
+    name = "DeegreeWorksHTTPs"
+    port = "443"
+    protocol = "HTTP2"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.pubLB_main_routing_policy.name
+    ssl_configuration {
+      certificate_name = oci_load_balancer_certificate.publicLB_certificate.certificate_name
+      cipher_suite_name = "oci-default-http2-ssl-cipher-suite-v1"
+      protocols = ["TLSv1.2"]
+      verify_peer_certificate = false
+    }
+}
+
+resource "oci_load_balancer_listener" "priLB1_https_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.priLB2_5559_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.priLB1.id
+    name = "DeegreeWorksHTTPs"
+    port = "443"
+    protocol = "HTTP2"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB1_main_routing_policy.name
+    ssl_configuration {
+      certificate_name = oci_load_balancer_certificate.priLB1_certificate.certificate_name
+      cipher_suite_name = "oci-default-http2-ssl-cipher-suite-v1"
+      protocols = ["TLSv1.2"]
+      verify_peer_certificate = false
+    }
+}
+
+resource "oci_load_balancer_listener" "priLB2_https_listener" {
+    default_backend_set_name = oci_load_balancer_backend_set.priLB2_5550_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.priLB2.id
+    name = "DeegreeWorksHTTPs"
+    port = "443"
+    protocol = "HTTP2"
+    routing_policy_name = oci_load_balancer_load_balancer_routing_policy.priLB2_main_routing_policy.name
+    ssl_configuration {
+      certificate_name = oci_load_balancer_certificate.priLB2_certificate.certificate_name
+      cipher_suite_name = "oci-default-http2-ssl-cipher-suite-v1"
+      protocols = ["TLSv1.2"]
+      verify_peer_certificate = false
+    }
+}
+
+
+//ssl_configuration: [{"certificate_ids":[],"certificate_name":"dwsouthlb","cipher_suite_name":"oci-default-http2-ssl-cipher-suite-v1","protocols":["TLSv1.2"],"server_order_preference":"ENABLED","trusted_certificate_authority_ids":[],"verify_depth":1,"verify_peer_certificate":false}]

@@ -5,7 +5,7 @@ resource "oci_load_balancer_load_balancer_routing_policy" "pubLB_main_routing_po
 
     condition_language_version = "V1"
     load_balancer_id = oci_load_balancer_load_balancer.pubLB.id
-    name = "${var.privateLB1.display_name}Main"
+    name = "${var.publicLB1.display_name}Main"
     rules {
         actions {
             name = "FORWARD_TO_BACKENDSET"
@@ -25,17 +25,17 @@ resource "oci_load_balancer_load_balancer_routing_policy" "pubLB_main_routing_po
     rules {
         actions {
             name = "FORWARD_TO_BACKENDSET"
-            backend_set_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name
+            backend_set_name = oci_load_balancer_backend_set.pubLB_priLB2_backend_set.name
         }
-        condition = "any(http.request.url.path sw (i '/DashboardServlet/${var.campusName.three}_prod'), http.request.url.path sw (i '/dwShell/${var.campusName.three}_PROD'), http.request.url.path sw (i '/ScribeUI/${var.campusName.two}_PROD'), http.request.url.path sw (i '/Controller_${var.campusName.three}'), http.request.url.path sw (i '/TransitUI_${var.campusName.three}'), http.request.url.path sw (i '/Composer_${var.campusName.three}'), http.request.url.path sw (i '/Dashboard_${var.campusName.three}'))"
+        condition = "any(http.request.url.path sw (i '/DashboardServlet/${var.campusName.three}_prod'), http.request.url.path sw (i '/dwShell/${var.campusName.three}_PROD'), http.request.url.path sw (i '/ScribeUI/${var.campusName.three}_PROD'), http.request.url.path sw (i '/Controller_${var.campusName.three}'), http.request.url.path sw (i '/TransitUI_${var.campusName.three}'), http.request.url.path sw (i '/Composer_${var.campusName.three}'), http.request.url.path sw (i '/Dashboard_${var.campusName.three}'))"
         name = "${var.campusName.three}"
     }
     rules {
         actions {
             name = "FORWARD_TO_BACKENDSET"
-            backend_set_name = oci_load_balancer_backend_set.pubLB_priLB1_backend_set.name
+            backend_set_name = oci_load_balancer_backend_set.pubLB_priLB2_backend_set.name
         }
-        condition = "any(http.request.url.path sw (i '/DashboardServlet/${var.campusName.four}_prod'), http.request.url.path sw (i '/dwShell/${var.campusName.four}_PROD'), http.request.url.path sw (i '/ScribeUI/${var.campusName.two}_PROD'), http.request.url.path sw (i '/Controller_${var.campusName.four}'), http.request.url.path sw (i '/TransitUI_${var.campusName.four}'), http.request.url.path sw (i '/Composer_${var.campusName.four}'), http.request.url.path sw (i '/Dashboard_${var.campusName.four}'))"
+        condition = "any(http.request.url.path sw (i '/DashboardServlet/${var.campusName.four}_prod'), http.request.url.path sw (i '/dwShell/${var.campusName.four}_PROD'), http.request.url.path sw (i '/ScribeUI/${var.campusName.four}_PROD'), http.request.url.path sw (i '/Controller_${var.campusName.four}'), http.request.url.path sw (i '/TransitUI_${var.campusName.four}'), http.request.url.path sw (i '/Composer_${var.campusName.four}'), http.request.url.path sw (i '/Dashboard_${var.campusName.four}'))"
         name = "${var.campusName.four}"
     }
 }
