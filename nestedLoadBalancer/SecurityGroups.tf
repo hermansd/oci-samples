@@ -1,3 +1,7 @@
+// Copyright (c) 2017, 2021, Oracle and/or its affiliates. All rights reserved.
+// Licensed under the Mozilla Public License v2.0
+
+
 resource "oci_core_network_security_group_security_rule" "lb_security_group_https_security_rule" {
     #Required
     network_security_group_id = oci_core_network_security_group.lb_security_group.id

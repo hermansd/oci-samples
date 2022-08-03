@@ -1,9 +1,6 @@
 // Copyright (c) 2017, 2021, Oracle and/or its affiliates. All rights reserved.
 // Licensed under the Mozilla Public License v2.0
 
-/*
- * This example creates a private load balancer on one subnet in a single AD.
- */
 
 
 provider "oci" {
