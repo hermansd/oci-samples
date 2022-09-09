@@ -3,8 +3,8 @@
   user: opc
   become: true
 
-  vars_files:
-    - vars.yml
+  #vars_files:
+  #  - vars.yml
 
   handlers:
     - name: restart nginx
@@ -13,21 +13,16 @@
         state: restarted
 
   tasks:
-    - name: Update all packages to the latest version
-      package:
-        upgrade: dist
+    - name: DNF update the system
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
 
-    - name: install Nginix services
-      package:
-        name: "nginix"
+    - name: install Nginx services
+      ansible.builtin.dnf:
+        name: "nginx"
         state: present
-        update_cache: yes
 
-    #    - name: Install dnsutils for DNS
-    #      package:
-    #        name: dnsutils
-    #        state: present
-    #        update_cache: yes
 
     #- name: Copy named configuraation files.
     #  copy:
@@ -42,8 +37,8 @@
     #  notify:
     #    - restart named
 
-    - name: Ensure Nginix is start and configure to run at boot
+    - name: Ensure nginx is start and configure to run at boot
       service:
-        name: nginix
+        name: nginx
         state: started
         enabled: true
